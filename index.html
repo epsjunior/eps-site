@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPS Soluções</title>
+<meta name="description" content="EPS Soluções e Consultoria a Tecnologia da Informação — consultoria, desenvolvimento de software e produtos digitais. São Paulo, Brasil.">
+<style>
+  :root {
+    --bg: #0E1420;
+    --surface: #141C2B;
+    --ink: #E8ECF3;
+    --muted: #93A0B4;
+    --line: #232E42;
+    --accent: #4E8EF7;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+  }
+  main { flex: 1; display: flex; align-items: center; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px; width: 100%; }
+  .mark {
+    font-size: 14px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 28px;
+  }
+  h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.15; letter-spacing: -0.015em; font-weight: 700; margin-bottom: 16px; text-wrap: balance; }
+  .lede { font-size: 18px; color: var(--muted); max-width: 56ch; margin-bottom: 40px; text-wrap: pretty; }
+  .cards { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 44px; }
+  .card {
+    border: 1px solid var(--line); border-radius: 8px; padding: 14px 18px;
+    background: var(--surface); font-size: 14.5px; color: var(--ink);
+  }
+  .card span { display: block; font-size: 12px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 2px; }
+  .contact { border-top: 1px solid var(--line); padding-top: 28px; font-size: 15px; color: var(--muted); }
+  .contact a { color: var(--accent); text-decoration: none; }
+  .contact a:hover, .contact a:focus-visible { text-decoration: underline; }
+  .contact p { margin-bottom: 6px; }
+  footer { padding: 20px 24px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); }
+  footer .wrap { padding: 0; max-width: 720px; margin: 0 auto; }
+</style>
+</head>
+<body>
+<main>
+  <div class="wrap">
+    <p class="mark">EPS Soluções</p>
+    <h1>Consultoria e desenvolvimento em tecnologia da informação</h1>
+    <p class="lede">Construímos software e produtos digitais — consultoria em TI, desenvolvimento de aplicações, infraestrutura em nuvem e suporte técnico especializado. Atuamos de São Paulo para todo o Brasil.</p>
+    <div class="cards">
+      <div class="card"><span>Consultoria</span>Arquitetura e estratégia de tecnologia</div>
+      <div class="card"><span>Desenvolvimento</span>Aplicações web e mobile</div>
+      <div class="card"><span>Nuvem</span>Infraestrutura, hospedagem e operação</div>
+      <div class="card"><span>Produtos</span>Aplicativos próprios em desenvolvimento</div>
+    </div>
+    <div class="contact">
+      <p><strong style="color: var(--ink)">EPS Soluções e Consultoria a Tecnologia da Informação LTDA</strong></p>
+      <p>CNPJ 36.427.251/0001-02</p>
+      <p>Av. Brig. Faria Lima, 1572 — Sala 1022, Jardim Paulistano, São Paulo/SP, CEP 01451-917</p>
+      <p>Contato: <a href="mailto:contato@eps.dev.br">contato@eps.dev.br</a></p>
+    </div>
+  </div>
+</main>
+<footer>
+  <div class="wrap">© 2020–2026 EPS Soluções e Consultoria a Tecnologia da Informação LTDA. Todos os direitos reservados.</div>
+</footer>
+</body>
+</html>
