@@ -104,21 +104,27 @@
   @media (max-width: 720px) { .row { grid-template-columns: 1fr; gap: 8px; } }
 
   /* Como trabalhamos — proof grid */
-  .proof { background: var(--surface); border-block: 1px solid var(--line); }
+  .proof { }
   .proof-grid { display: grid; grid-template-columns: 1fr; gap: clamp(28px, 4vw, 48px) clamp(28px, 4vw, 64px); }
   @media (min-width: 680px) { .proof-grid { grid-template-columns: 1fr 1fr; } }
   .proof-item h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: baseline; gap: 10px; }
   .proof-item h3::before { content: ""; width: 18px; height: 3px; border-radius: 2px; background: var(--steel); flex: none; transform: translateY(-4px); }
   .proof-item p { color: var(--muted); font-size: 15.5px; text-wrap: pretty; }
 
-  /* Trajetória */
-  .traj { max-width: 68ch; }
-  .traj p { color: var(--muted); font-size: clamp(16.5px, 2vw, 18.5px); line-height: 1.8; margin-bottom: 22px; text-wrap: pretty; }
-  .traj p strong { color: var(--ink); font-weight: 600; }
-  .traj .traj-pull {
-    color: var(--steel); font-size: clamp(19px, 2.6vw, 24px); font-weight: 700; line-height: 1.5;
-    letter-spacing: -0.01em; margin-top: 30px; margin-bottom: 0; max-width: 34ch; text-wrap: balance;
+  /* Manifesto band — full-width statement */
+  .manifesto { background: var(--surface); border-block: 1px solid var(--line); }
+  .manifesto-grid {
+    display: grid; grid-template-columns: 7fr 5fr; gap: 32px clamp(48px, 7vw, 96px);
+    align-items: center;
   }
+  .manifesto-line {
+    font-size: clamp(30px, 4.6vw, 52px); font-weight: 800; line-height: 1.12;
+    letter-spacing: -0.02em; text-wrap: balance;
+  }
+  .manifesto-line em { font-style: normal; color: var(--dawn); }
+  .manifesto-side p { color: var(--muted); font-size: 16.5px; line-height: 1.75; text-wrap: pretty; }
+  .manifesto-side p + p { margin-top: 16px; }
+  @media (max-width: 860px) { .manifesto-grid { grid-template-columns: 1fr; } }
 
   /* Produto — the dawn panel */
   .produto .panel {
@@ -181,20 +187,34 @@
     <div class="rows">
       <div class="row">
         <h3>Aplicativos mobile</h3>
-        <p>iOS e Android com uma base de código só — <strong>React Native + Expo</strong>, áudio em segundo plano, offline-first e desempenho medido em aparelhos de entrada, não em emulador. App leve, partida rápida, acessível por padrão.</p>
+        <p>iOS e Android com uma base de código só — <strong>React Native + Expo</strong>, áudio em segundo plano, offline-first. Construímos apps multiplataforma há uma década, e nossa bancada de teste é o <strong>celular de entrada com plano pré-pago</strong>: app leve, partida rápida, acessível por padrão.</p>
       </div>
       <div class="row">
         <h3>Plataformas e APIs</h3>
-        <p>Backends em <strong>TypeScript sobre PostgreSQL</strong> — e <strong>Rust</strong> onde performance é crítica — desenhados para auditabilidade: dados críticos versionados como eventos, nunca sobrescritos. O que o sistema afirma, ele consegue provar.</p>
+        <p>Backends em <strong>TypeScript sobre PostgreSQL</strong> — e <strong>Rust</strong> onde performance é crítica — com a disciplina de quem construiu <strong>internet e mobile banking para alguns dos maiores bancos do Brasil</strong>: dados críticos versionados como eventos, vulnerabilidades caçadas em testes de invasão, auditabilidade de ponta a ponta.</p>
       </div>
       <div class="row">
         <h3>Nuvem e operação</h3>
-        <p>Infraestrutura como código na <strong>AWS, com dados no Brasil</strong> (região São Paulo): CDN, filas, observabilidade e alarmes desde o primeiro deploy — porque confiabilidade não é etapa final, é fundação.</p>
+        <p>Infraestrutura como código na <strong>AWS, com dados no Brasil</strong> (região São Paulo): CDN, filas, observabilidade e alarmes desde o primeiro deploy. O padrão de operação que aprendemos migrando e monitorando sistemas em <strong>ambientes financeiros regulados</strong>.</p>
+      </div>
+      <div class="row">
+        <h3>Ferramentas de desenvolvedor &amp; Web3</h3>
+        <p><strong>CLIs, SDKs, linters e extensões de IDE</strong> para infraestrutura blockchain, construídos para um laboratório internacional e usados diariamente por outros engenheiros — <strong>o público mais exigente que existe</strong>. Integrações de carteira, indexadores e contratos inteligentes em produção.</p>
       </div>
       <div class="row">
         <h3>Produtos próprios</h3>
-        <p>Além de projetos para clientes, a EPS projeta e opera <strong>produtos digitais próprios</strong> — do conceito e pesquisa de mercado à assinatura recorrente nas lojas.</p>
+        <p>Do conceito e pesquisa de mercado à <strong>assinatura recorrente nas lojas</strong>: projetamos, construímos e operamos produtos digitais completos — com a mesma régua dos projetos que fazemos para os outros.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="manifesto" aria-label="Nossa régua">
+  <div class="wrap manifesto-grid">
+    <p class="manifesto-line">Mais de uma década construindo sistemas que <em>movimentam dinheiro</em> — e não podem parar.</p>
+    <div class="manifesto-side">
+      <p>Essa é a régua da EPS: formada em bancos, dos caixas eletrônicos ao mobile banking; refinada em infraestrutura blockchain para engenheiros do mundo todo; aplicada a cada produto que sai daqui.</p>
+      <p>Ciência da Computação pela Universidade Federal do ABC. Autoria técnica publicada sobre Rust e sistemas distribuídos.</p>
     </div>
   </div>
 </section>
@@ -219,17 +239,6 @@
         <h3>Qualidade de produção</h3>
         <p>Revisão de código, testes, monitoramento e resposta a incidentes. Software não está pronto quando compila — está pronto quando opera sob carga, todos os dias.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<section aria-label="Trajetória">
-  <div class="wrap">
-    <h2 class="sec-head">Formada onde <em>errar não é opção</em>.</h2>
-    <div class="traj">
-      <p>A engenharia da EPS vem de <strong>mais de uma década</strong> construindo sistemas em que falha custa caro: internet e mobile banking de <strong>alguns dos maiores bancos do Brasil</strong>, componentes de caixas eletrônicos e plataformas de pagamento, <strong>testes de invasão e correção de vulnerabilidades</strong>, migrações completas para a nuvem em ambientes regulados.</p>
-      <p>Hoje, esse mesmo rigor constrói <strong>infraestrutura blockchain e ferramentas de desenvolvedor</strong> para um laboratório internacional — CLIs, SDKs e extensões usadas por outros engenheiros, o público mais exigente que existe. Formação em Ciência da Computação pela Universidade Federal do ABC e <strong>autoria técnica publicada</strong> sobre Rust e sistemas distribuídos.</p>
-      <p class="traj-pull">É essa régua que trazemos para cada produto: a de sistemas que movimentam dinheiro e não podem parar.</p>
     </div>
   </div>
 </section>
