@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serviço em primeiro plano — Alvorada</title>
+<meta name="description" content="Demonstração do uso de FOREGROUND_SERVICE_MEDIA_PLAYBACK no aplicativo Alvorada.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B131B'/%3E%3Cpath d='M8 19a8 8 0 0 1 16 0' fill='%23E8B45F'/%3E%3Crect x='5' y='19' width='22' height='2.5' rx='1.25' fill='%236FB0CC'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B131B; --surface: #121F2A; --ink: #E9EFF3; --muted: #9AAEBA;
+    --line: #223541; --steel: #6FB0CC; --dawn: #E8B45F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Barlow', -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+  a { color: var(--steel); }
+  a:focus-visible { outline: 2px solid var(--dawn); outline-offset: 3px; border-radius: 2px; }
+
+  header.nav { border-bottom: 1px solid var(--line); }
+  .nav-in { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+  .brand strong { font-weight: 800; font-size: 17px; letter-spacing: .16em; }
+  .nav a.cta {
+    color: var(--ink); text-decoration: none; font-weight: 500; font-size: 15px;
+    border: 1px solid var(--line); border-radius: 6px; padding: 8px 16px;
+    transition: border-color .18s, color .18s;
+  }
+  .nav a.cta:hover, .nav a.cta:focus-visible { border-color: var(--steel); color: var(--steel); }
+
+  main { padding: clamp(44px, 8vw, 80px) 0 64px; }
+  h1 { font-size: clamp(30px, 5vw, 42px); font-weight: 800; line-height: 1.15; letter-spacing: -.01em; }
+  .updated { color: var(--muted); font-size: 15px; margin-top: 10px; }
+  h2 {
+    font-size: 21px; font-weight: 700; margin: 44px 0 12px;
+    padding-top: 22px; border-top: 1px solid var(--line);
+  }
+  h2:first-of-type { border-top: 0; padding-top: 0; }
+  p { margin: 0 0 14px; }
+  ul { margin: 0 0 14px; padding-left: 22px; }
+  li { margin-bottom: 8px; }
+  strong { color: #fff; font-weight: 700; }
+
+  .resumo {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 22px 26px; margin: 28px 0 8px;
+  }
+  .resumo ul { margin-bottom: 0; }
+  .nota {
+    margin-top: 40px; padding: 18px 22px; border-left: 3px solid var(--dawn);
+    background: rgba(232,180,95,.06); color: var(--muted); font-size: 15px;
+  }
+  footer { border-top: 1px solid var(--line); padding: 26px 0 40px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; flex-direction: column; gap: 4px; }
+
+  video { width: 100%; max-width: 360px; display: block; border-radius: 10px;
+          border: 1px solid var(--line); margin: 26px auto 8px; }
+  .legenda { text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 30px; }
+  ol { margin: 0 0 14px; padding-left: 22px; } ol li { margin-bottom: 8px; }
+</style>
+
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="/" aria-label="EPS Soluções — início">
+      <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><path d="M8 19a8 8 0 0 1 16 0" fill="#E8B45F"/><rect x="5" y="19" width="22" height="2.5" rx="1.25" fill="#6FB0CC"/></svg>
+      <strong>EPS</strong>
+    </a>
+    <a class="cta" href="mailto:ed@eps.dev.br">Fale conosco</a>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <h1>Serviço em primeiro plano — Alvorada</h1>
+  <p class="updated">Demonstração de <code>FOREGROUND_SERVICE_MEDIA_PLAYBACK</code></p>
+
+  <video controls preload="metadata" playsinline>
+    <source src="demo.mp4" type="video/mp4">
+  </video>
+  <p class="legenda">30 s · sem áudio (limitação da gravação de tela do Android)</p>
+
+  <h2>Para que a permissão é usada</h2>
+  <p>O Alvorada é um aplicativo devocional <strong>com áudio em primeiro lugar</strong>. A narração
+  do devocional do dia precisa continuar tocando quando a pessoa apaga a tela e guarda o telefone no
+  bolso — no ônibus, fazendo o café, ou antes de dormir. É o caso de uso central do produto, não um
+  acessório dele.</p>
+  <p>O serviço em primeiro plano existe exatamente para isso: manter a reprodução viva e mostrar os
+  controles de mídia enquanto o usuário não está interagindo com o aplicativo.</p>
+
+  <h2>O que o vídeo mostra</h2>
+  <ol>
+    <li>A tela inicial, com o devocional do dia.</li>
+    <li>O leitor abre e a narração começa. O cronômetro avança de <strong>0:02</strong> para
+    <strong>0:06</strong>, e a palavra falada acende no texto.</li>
+    <li>O aplicativo vai para segundo plano pelo botão de início.</li>
+    <li>A notificação de mídia permanece, com o título do devocional e o controle de reprodução.
+    O botão aparece como <strong>pausa</strong>, o que indica que o áudio continua tocando.</li>
+  </ol>
+  <p style="color:var(--muted);font-size:15px">A gravação de tela do Android não captura áudio, por
+  isso a prova de reprodução é visual: o cronômetro que avança e o estado do controle de mídia.</p>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2020–2026 EPS Soluções e Consultoria a Tecnologia da Informação LTDA</span>
+    <span>Av. Brig. Faria Lima, 1572 — Sala 1022, São Paulo/SP · CNPJ 36.427.251/0001-02</span>
+  </div>
+</footer>
+
+</body>
+</html>
