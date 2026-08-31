@@ -3,135 +3,359 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alvorada — devocional diário com narração</title>
-<meta name="description" content="Um devocional por dia, com narração, e a Bíblia inteira offline. Sem anúncios. Um aplicativo da EPS Soluções.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B131B'/%3E%3Cpath d='M8 19a8 8 0 0 1 16 0' fill='%23E8B45F'/%3E%3Crect x='5' y='19' width='22' height='2.5' rx='1.25' fill='%236FB0CC'/%3E%3C/svg%3E">
+<title>Alvorada: um devocional por dia, com narração</title>
+<meta name="description" content="Um devocional por dia, feito para ser ouvido, e a Bíblia inteira sem internet. Sem anúncios. Um aplicativo da EPS Soluções, São Paulo.">
+<link rel="canonical" href="https://eps.dev.br/alvorada/">
+<meta name="theme-color" content="#F4F8F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1612" media="(prefers-color-scheme: dark)">
+
+<!-- Smart App Banner (Safari): aparece quando o app estiver na App Store do Brasil;
+     até lá o iOS simplesmente não o mostra. O app-argument é o que o app recebe ao
+     tocar em "Abrir": a Hoje. O id é o ascAppId de apps/mobile/eas.json. -->
+<meta name="apple-itunes-app" content="app-id=6804836132, app-argument=https://eps.dev.br/alvorada/">
+
+<!-- Prévia de link (WhatsApp, Telegram, Messages) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alvorada">
+<meta property="og:title" content="Alvorada: um devocional por dia, com narração">
+<meta property="og:description" content="Feito para ser ouvido: a Palavra, uma reflexão e uma oração, todas as manhãs. A Bíblia inteira sem internet. Sem anúncios.">
+<meta property="og:url" content="https://eps.dev.br/alvorada/">
+<meta property="og:image" content="https://eps.dev.br/alvorada/marca-dia.png">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="1024">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="/alvorada/marca-dia.png" type="image/png">
+<link rel="apple-touch-icon" href="/alvorada/marca-dia.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&display=swap" rel="stylesheet">
+
 <style>
+  /* Tokens do Alvorada, emitidos por `@alvorada/tokens` (themeCssBlock) no
+     repositório do app, hex primeiro e oklch canônico sob @supports. Não invente
+     cor aqui: mude no pacote e cole de novo. Manhã por padrão; Noite segue o
+     sistema. */
   :root {
-    --bg: #0B131B; --surface: #121F2A; --ink: #E9EFF3; --muted: #9AAEBA;
-    --line: #223541; --steel: #6FB0CC; --dawn: #E8B45F;
+    --alv-bg: #F4F8F5; --alv-surface: #FCFEFD; --alv-ink: #1A251D; --alv-muted: #556159;
+    --alv-line: #DEE3DE; --alv-primary: #23643F; --alv-primary-ink: #FCFCFC;
+    --alv-accent: #956011; --alv-accent-reading: #81520A; --alv-accent-soft: #F8EDD8;
+    --alv-marca: #F7DEAC;
   }
+  @supports (color: oklch(0 0 0)) {
+    :root {
+      --alv-bg: oklch(0.975 0.006 150); --alv-surface: oklch(0.995 0.002 150);
+      --alv-ink: oklch(0.25 0.02 155); --alv-muted: oklch(0.48 0.02 155);
+      --alv-line: oklch(0.91 0.008 150); --alv-primary: oklch(0.45 0.09 155);
+      --alv-primary-ink: oklch(0.99 0 0); --alv-accent: oklch(0.535 0.11 70);
+      --alv-accent-reading: oklch(0.48 0.10 70); --alv-accent-soft: oklch(0.95 0.03 85);
+      --alv-marca: oklch(0.91 0.07 85);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --alv-bg: #0F1612; --alv-surface: #181F1B; --alv-ink: #E4E9E5; --alv-muted: #919B94;
+      --alv-line: #2B322E; --alv-primary: #6BB88D; --alv-primary-ink: #0F1612;
+      --alv-accent: #E0AE57; --alv-accent-reading: #E0AE57; --alv-accent-soft: #3A2B0F;
+      --alv-marca: #3A2B0F;
+    }
+    @supports (color: oklch(0 0 0)) {
+      :root {
+        --alv-bg: oklch(0.19 0.012 160); --alv-surface: oklch(0.23 0.012 160);
+        --alv-ink: oklch(0.93 0.008 150); --alv-muted: oklch(0.68 0.015 155);
+        --alv-line: oklch(0.31 0.012 160); --alv-primary: oklch(0.72 0.10 158);
+        --alv-primary-ink: oklch(0.19 0.012 160); --alv-accent: oklch(0.78 0.12 80);
+        --alv-accent-reading: oklch(0.78 0.12 80); --alv-accent-soft: oklch(0.30 0.048 80);
+        --alv-marca: oklch(0.30 0.048 80);
+      }
+    }
+  }
+
+  :root {
+    --f-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --f-leitura: 'Literata', Georgia, 'Times New Roman', serif;
+    --f-display: 'Fraunces', Georgia, serif;
+    --ease-out: cubic-bezier(.16, 1, .3, 1);
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; color-scheme: light dark; }
   body {
-    background: var(--bg); color: var(--ink);
-    font-family: 'Barlow', -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.7; -webkit-font-smoothing: antialiased;
+    background: var(--alv-bg); color: var(--alv-ink);
+    font-family: var(--f-ui); font-size: 17px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
-  a { color: var(--steel); }
-  a:focus-visible { outline: 2px solid var(--dawn); outline-offset: 3px; border-radius: 2px; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 40px); }
+  a { color: var(--alv-primary); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--alv-accent); outline-offset: 3px; border-radius: 4px; }
+  strong { font-weight: 600; color: var(--alv-ink); }
+  code { font-family: ui-monospace, Menlo, monospace; font-size: .92em; }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
 
-  header.nav { border-bottom: 1px solid var(--line); }
-  .nav-in { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; }
-  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
-  .brand strong { font-weight: 800; font-size: 17px; letter-spacing: .16em; }
-  .nav a.cta {
-    color: var(--ink); text-decoration: none; font-weight: 500; font-size: 15px;
-    border: 1px solid var(--line); border-radius: 6px; padding: 8px 16px;
-    transition: border-color .18s, color .18s;
-  }
-  .nav a.cta:hover, .nav a.cta:focus-visible { border-color: var(--steel); color: var(--steel); }
+  /* ===== O topo da EPS: a casa que publica o app ===== */
+  .topo { border-bottom: 1px solid var(--alv-line); }
+  .topo-in { display: flex; align-items: center; justify-content: space-between; min-height: 60px; gap: 16px; }
+  .eps { display: inline-flex; align-items: center; gap: 10px; color: var(--alv-ink); text-decoration: none; font-weight: 600; font-size: 13px; letter-spacing: .06em; padding: 8px 0; }
+  .eps svg { display: block; }
+  .topo-link { font-size: 15px; font-weight: 500; text-decoration: none; padding: 10px 0; }
+  .topo-link:hover { text-decoration: underline; }
 
-  main { padding: clamp(44px, 8vw, 80px) 0 64px; }
-  .marca { width: 96px; height: 96px; border-radius: 21px; display: block; }
-  h1 { font-size: clamp(34px, 6vw, 50px); font-weight: 800; line-height: 1.1; letter-spacing: -.015em; margin-top: 26px; }
-  .assinatura { color: var(--dawn); font-size: clamp(17px, 2.6vw, 20px); margin-top: 12px; font-weight: 500; }
-  .intro { margin-top: 26px; font-size: 17px; }
-  p { margin: 0 0 14px; }
-  strong { color: #fff; font-weight: 700; }
+  /* ===== Abertura ===== */
+  .abertura { padding: clamp(40px, 9vw, 72px) 0 clamp(36px, 7vw, 56px); }
+  .marca { width: 88px; height: 88px; border-radius: 20px; display: block; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  h1 { font-family: var(--f-display); font-weight: 600; font-size: clamp(42px, 10vw, 60px); line-height: 1.02; letter-spacing: -.01em; margin-top: 24px; color: var(--alv-ink); }
+  .assinatura { font-family: var(--f-leitura); font-style: italic; font-size: clamp(19px, 3vw, 22px); line-height: 1.4; color: var(--alv-accent-reading); margin-top: 10px; }
+  .proposta { font-family: var(--f-leitura); font-size: clamp(18px, 2.6vw, 20px); line-height: 1.6; margin-top: 26px; max-width: 34em; }
 
-  h2 {
-    font-size: 21px; font-weight: 700; margin: 44px 0 12px;
-    padding-top: 22px; border-top: 1px solid var(--line);
+  /* ===== A ação: estado das lojas em UM atributo ===== */
+  .acao { margin-top: 30px; padding: 22px 24px 24px; background: var(--alv-surface); border: 1px solid var(--alv-line); border-radius: 12px; }
+  .acao[data-lojas="fechadas"] .abertas { display: none; }
+  .acao[data-lojas="abertas"]  .fechadas { display: none; }
+  .acao-titulo { font-weight: 600; font-size: 17px; margin-bottom: 6px; }
+  .acao p + p { margin-top: 6px; }
+  .acao .fechadas p:not(.acao-titulo) { color: var(--alv-muted); font-size: 16px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; margin-top: 10px; }
+  .badges a { display: inline-flex; line-height: 0; border-radius: 8px; }
+  .badges img { height: 56px; width: auto; display: block; }
+  html.so-ios .badges { flex-direction: row-reverse; justify-content: flex-end; }
+  .abrir-linha { margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .abrir-linha[hidden] { display: none; }
+  .botao {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px;
+    background: var(--alv-primary); color: var(--alv-primary-ink); text-decoration: none; font-weight: 600; font-size: 16px;
+    border-radius: 10px; transition: transform .18s var(--ease-out), filter .18s;
   }
-  ul { margin: 0 0 14px; padding-left: 22px; }
-  li { margin-bottom: 10px; }
+  .botao:hover { filter: brightness(1.06); }
+  .botao:active { transform: translateY(1px); }
+  .abrir-nota { color: var(--alv-muted); font-size: 14px; }
 
-  .resumo {
-    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
-    padding: 22px 26px; margin: 28px 0 8px;
-  }
-  .resumo ul { margin-bottom: 0; }
-  .nota {
-    margin-top: 40px; padding: 18px 22px; border-left: 3px solid var(--dawn);
-    background: rgba(232,180,95,.06); color: var(--muted); font-size: 15px;
-  }
-  .links { display: flex; flex-wrap: wrap; gap: 12px; margin: 22px 0 0; }
-  .links a {
-    text-decoration: none; color: var(--ink); font-weight: 500; font-size: 15px;
-    border: 1px solid var(--line); border-radius: 6px; padding: 10px 18px;
-    transition: border-color .18s, color .18s;
-  }
-  .links a:hover, .links a:focus-visible { border-color: var(--steel); color: var(--steel); }
+  /* ===== Seções ===== */
+  section + section { border-top: 1px solid var(--alv-line); }
+  .secao { padding: clamp(40px, 8vw, 64px) 0; }
+  h2 { font-family: var(--f-leitura); font-weight: 500; font-size: clamp(24px, 4.2vw, 30px); line-height: 1.25; letter-spacing: -.005em; }
+  .secao > .wrap > p, .secao .texto { font-family: var(--f-leitura); font-size: 18px; line-height: 1.6; margin-top: 14px; max-width: 34em; }
 
-  footer { border-top: 1px solid var(--line); padding: 26px 0 40px; color: var(--muted); font-size: 14px; }
-  footer .wrap { display: flex; flex-direction: column; gap: 4px; }
+  /* ===== O cartão, como ele sai do app ===== */
+  .cartao {
+    position: relative; overflow: hidden; isolation: isolate;
+    width: min(100%, 360px); aspect-ratio: 1 / 1; margin: 30px auto 0;
+    background: var(--alv-surface); border: 1px solid var(--alv-line); border-radius: 6px;
+    padding: 9% 9% 7%; display: flex; flex-direction: column; justify-content: center;
+    box-shadow: 0 6px 24px rgba(26, 37, 29, .10);
+  }
+  @media (prefers-color-scheme: dark) { .cartao { box-shadow: 0 8px 28px rgba(0, 0, 0, .45); } }
+  .cartao-luz {
+    position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      repeating-conic-gradient(from -84deg at 50% -18%, color-mix(in oklab, var(--alv-accent) 28%, transparent) 0 2deg, transparent 2deg 9deg),
+      radial-gradient(90% 60% at 50% -10%, var(--alv-accent-soft) 0%, transparent 70%);
+    opacity: 0; animation: nascer 1.4s var(--ease-out) .25s forwards;
+  }
+  .cartao-luz::before {
+    /* Os raios só existem a 6%: no cartão de verdade eles leem como luz atrás
+       das palavras, nunca como gráfico. */
+    content: ""; position: absolute; inset: 0;
+    background: var(--alv-surface); opacity: .94;
+    mask: radial-gradient(90% 60% at 50% -10%, transparent 0%, black 70%);
+    -webkit-mask: radial-gradient(90% 60% at 50% -10%, transparent 0%, black 70%);
+  }
+  @keyframes nascer { to { opacity: 1; } }
+  .cartao-versiculo { border: 0; margin: 0; }
+  .cartao-versiculo p { font-family: var(--f-leitura); font-size: clamp(17px, 5.2vw, 22px); line-height: 1.45; color: var(--alv-ink); text-wrap: pretty; }
+  .cartao-ref { margin-top: 16px; font-weight: 500; font-size: 13px; color: var(--alv-muted); }
+  .cartao-credito { margin-top: 3px; font-size: 11px; color: var(--alv-muted); }
+  .cartao-rodape { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--alv-line); display: flex; align-items: baseline; gap: 6px; }
+  .cartao-marca { font-family: var(--f-display); font-weight: 600; font-size: 15px; color: var(--alv-ink); }
+  .cartao-endereco { font-size: 12px; color: var(--alv-muted); white-space: pre; }
+  .cartao-legenda { text-align: center; color: var(--alv-muted); font-size: 14px; margin-top: 12px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .cartao-luz { animation: none; opacity: 1; }
+  }
+
+  /* ===== O que tem dentro: linhas, não cartões ===== */
+  .fatos { margin-top: 10px; }
+  .fatos > div { padding: 22px 0; border-top: 1px solid var(--alv-line); }
+  .fatos > div:first-child { border-top: 0; }
+  .fatos dt { font-family: var(--f-leitura); font-weight: 500; font-size: 20px; line-height: 1.3; }
+  .fatos dd { margin-top: 6px; color: var(--alv-muted); font-size: 16.5px; line-height: 1.6; max-width: 36em; text-wrap: pretty; }
+  .fatos dd strong { color: var(--alv-ink); font-weight: 500; }
+
+  /* ===== É oficial? ===== */
+  .sinais { list-style: none; margin-top: 18px; }
+  .sinais li { position: relative; padding: 14px 0 14px 30px; border-top: 1px solid var(--alv-line); font-size: 16.5px; line-height: 1.55; }
+  .sinais li::before {
+    content: ""; position: absolute; left: 2px; top: 22px; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--alv-accent-soft); box-shadow: inset 0 0 0 1.5px var(--alv-accent);
+  }
+  .sinais li:last-child { border-bottom: 1px solid var(--alv-line); }
+  .links-legais { margin-top: 20px; font-size: 16px; }
+  .links-legais a + a { margin-left: 4px; }
+
+  footer { border-top: 1px solid var(--alv-line); padding: 26px 0 44px; color: var(--alv-muted); font-size: 13.5px; line-height: 1.55; }
+  footer p + p { margin-top: 10px; }
+  footer a { color: inherit; }
 </style>
 </head>
 <body>
 
-<header class="nav">
-  <div class="wrap nav-in">
-    <a class="brand" href="/" aria-label="EPS Soluções — início">
-      <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><path d="M8 19a8 8 0 0 1 16 0" fill="#E8B45F"/><rect x="5" y="19" width="22" height="2.5" rx="1.25" fill="#6FB0CC"/></svg>
-      <strong>EPS</strong>
+<header class="topo">
+  <div class="wrap topo-in">
+    <a class="eps" href="/" aria-label="EPS Soluções, página inicial">
+      <svg width="24" height="24" viewBox="0 0 32 32" aria-hidden="true"><path d="M8 19a8 8 0 0 1 16 0" fill="#E8B45F"/><rect x="5" y="19" width="22" height="2.5" rx="1.25" fill="#6FB0CC"/></svg>
+      <span>EPS SOLUÇÕES</span>
     </a>
-    <a class="cta" href="mailto:ed@eps.dev.br">Fale conosco</a>
+    <a class="topo-link" href="mailto:ed@eps.dev.br">Fale conosco</a>
   </div>
 </header>
 
 <main>
-<div class="wrap">
+  <section class="abertura" aria-labelledby="titulo">
+    <div class="wrap">
+      <picture>
+        <source srcset="/alvorada/marca.png" media="(prefers-color-scheme: dark)">
+        <img class="marca" src="/alvorada/marca-dia.png" width="88" height="88"
+             alt="A marca do Alvorada: o sol nascendo do corte das páginas de um livro aberto.">
+      </picture>
+      <h1 id="titulo">Alvorada</h1>
+      <p class="assinatura">As misericórdias se renovam a cada manhã</p>
+      <p class="proposta">Um devocional por dia, feito para ser <strong>ouvido</strong>: passando o café, no ônibus, antes de dormir. A Bíblia inteira sem internet. Sem anúncios.</p>
 
-  <img class="marca" src="/alvorada/marca.png" width="96" height="96"
-       alt="A marca do Alvorada: o sol nascendo do corte das páginas de um livro aberto.">
+      <!-- O estado das lojas vive NESTE atributo e em mais lugar nenhum:
+           "fechadas" enquanto o app estiver em testes, "abertas" no dia em que as
+           fichas ficarem públicas. Trocar a palavra é a publicação inteira. -->
+      <div class="acao" id="baixar" data-lojas="fechadas">
+        <div class="fechadas">
+          <p class="acao-titulo">Em testes fechados até dezembro</p>
+          <p>O Alvorada chega à Google Play e à App Store em <strong>dezembro de 2026</strong>. Se você já recebeu o aplicativo para testar, o botão abaixo abre o que está instalado no seu celular.</p>
+        </div>
+        <div class="abertas">
+          <p class="acao-titulo">Baixe de graça</p>
+          <div class="badges">
+            <a class="badge" href="https://play.google.com/store/apps/details?id=br.dev.eps.alvorada" hreflang="pt-BR">
+              <img src="/alvorada/badges/google-play.png" width="145" height="56" alt="Disponível no Google Play">
+            </a>
+            <a class="badge" href="https://apps.apple.com/br/app/id6804836132" hreflang="pt-BR">
+              <img src="/alvorada/badges/app-store.svg" width="168" height="56" alt="Baixar na App Store">
+            </a>
+          </div>
+        </div>
+        <p class="abrir-linha" hidden>
+          <a class="botao" id="abrir" href="/alvorada/">Abrir no aplicativo</a>
+          <span class="abrir-nota">Só funciona com o Alvorada já instalado.</span>
+        </p>
+      </div>
+    </div>
+  </section>
 
-  <h1>Alvorada</h1>
-  <p class="assinatura">As misericórdias se renovam a cada manhã</p>
+  <section class="secao" aria-labelledby="cartao-titulo">
+    <div class="wrap">
+      <h2 id="cartao-titulo">Recebeu um cartão com este endereço?</h2>
+      <p>Ele foi feito no Alvorada. O versículo do dia e os trechos do devocional saem do aplicativo como uma imagem pronta para o WhatsApp. O endereço impresso no rodapé é este aqui.</p>
 
-  <p class="intro">Um devocional por dia, feito para ser <strong>ouvido</strong>. A leitura acompanha
-  a voz, palavra por palavra, e continua tocando com a tela apagada, no ônibus ou na cozinha.</p>
+      <figure class="cartao" role="img" aria-label="Exemplo de cartão: Lamentações 3:22-23, com a marca Alvorada e o endereço eps.dev.br/alvorada no rodapé.">
+        <div class="cartao-luz" aria-hidden="true"></div>
+        <blockquote class="cartao-versiculo">
+          <p>É pelas bondades do SENHOR que não somos consumidos, porque suas misericórdias não têm fim. Elas são novas a cada manhã; grande é a tua fidelidade.</p>
+        </blockquote>
+        <p class="cartao-ref">Lamentações 3:22-23</p>
+        <p class="cartao-credito">Bíblia Livre (BLIVRE) · CC BY 4.0</p>
+        <div class="cartao-rodape"><span class="cartao-marca">Alvorada</span><span class="cartao-endereco">·  eps.dev.br/alvorada</span></div>
+      </figure>
+      <p class="cartao-legenda">Um cartão no formato quadrado, como o aplicativo o exporta.</p>
+    </div>
+  </section>
 
-  <div class="resumo">
-    <ul>
-      <li><strong>Um devocional por dia</strong>, curto, com narração.</li>
-      <li><strong>A Bíblia inteira, offline</strong>, para ler sem internet e sem gastar dados.</li>
-      <li><strong>Sem anúncios.</strong> Nenhum, em lugar nenhum do aplicativo.</li>
-    </ul>
-  </div>
+  <section class="secao" aria-labelledby="dentro-titulo">
+    <div class="wrap">
+      <h2 id="dentro-titulo">O que tem dentro</h2>
+      <dl class="fatos">
+        <div>
+          <dt>Um devocional por dia, com narração</dt>
+          <dd>Dez minutos: a Palavra, uma reflexão de autores clássicos adaptada ao português de hoje e uma oração. <strong>Toca com a tela apagada</strong>, e o texto acompanha a voz palavra por palavra.</dd>
+        </div>
+        <div>
+          <dt>A Bíblia inteira, sem internet</dt>
+          <dd>Leitura, busca e destaques <strong>sem gastar seus dados</strong>. E a letra do tamanho que você precisar.</dd>
+        </div>
+        <div>
+          <dt>Sem anúncios, sem conta obrigatória</dt>
+          <dd>Nenhum anúncio, em lugar nenhum. Conta, só se você quiser guardar a sua constância ao trocar de celular, e ela se apaga em dois toques.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
 
-  <h2>Onde baixar</h2>
-  <p>O Alvorada ainda não está nas lojas. Ele está em testes fechados, e esta página vai carregar os
-  links de download assim que houver.</p>
-
-  <h2>Sua privacidade</h2>
-  <p>O aplicativo funciona <strong>sem conta nenhuma</strong>. Se você criar uma, pode apagá-la em
-  dois toques, e nada fica guardado depois disso.</p>
-  <p>O que você escreve como motivo de oração ou como anotação num versículo <strong>nunca sai do seu
-  aparelho</strong>. Não existe formato para isso viajar, nem servidor a quem perguntar.</p>
-
-  <div class="links">
-    <a href="/alvorada/privacidade/">Política de Privacidade</a>
-    <a href="/alvorada/excluir-conta/">Excluir a sua conta</a>
-  </div>
-
-  <div class="nota">
-    O Alvorada é um aplicativo da <strong>EPS Soluções</strong>. Para falar com a gente, escreva para
-    <a href="mailto:ed@eps.dev.br">ed@eps.dev.br</a>.
-  </div>
-
-</div>
+  <section class="secao" aria-labelledby="oficial-titulo">
+    <div class="wrap">
+      <h2 id="oficial-titulo">É o aplicativo oficial?</h2>
+      <p>O Alvorada é feito e publicado pela <strong>EPS Soluções e Consultoria a Tecnologia da Informação LTDA</strong>, CNPJ 36.427.251/0001-02, de São Paulo. Este site é o nosso, e o nosso e-mail é <a href="mailto:ed@eps.dev.br">ed@eps.dev.br</a>.</p>
+      <ul class="sinais">
+        <li>Nas lojas o aplicativo se chama <strong>Alvorada</strong>; no Android, o pacote é <code>br.dev.eps.alvorada</code>. Baixe só pelos links desta página ou pela busca da própria loja.</li>
+        <li>Hoje ele é gratuito e não cobra nada. Quando existir uma forma de <strong>apoiar o projeto</strong>, ela vai aparecer dentro do próprio aplicativo, com preço e data de renovação escritos e cancelamento em dois toques. Nunca por mensagem, link ou Pix enviado a você.</li>
+        <li>Ninguém do Alvorada pede senha, código de confirmação ou pagamento pelo WhatsApp. Se receber algo assim, não é da gente.</li>
+      </ul>
+      <p class="links-legais"><a href="/alvorada/privacidade/">Política de Privacidade</a> · <a href="/alvorada/excluir-conta/">Excluir a sua conta</a></p>
+    </div>
+  </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <span>© 2020–2026 EPS Soluções e Consultoria a Tecnologia da Informação LTDA</span>
-    <span>Av. Brig. Faria Lima, 1572 — Sala 1022, São Paulo/SP · CNPJ 36.427.251/0001-02</span>
+    <p>© 2020–2026 EPS Soluções e Consultoria a Tecnologia da Informação LTDA · Av. Brig. Faria Lima, 1572, Sala 1022, São Paulo/SP · CNPJ 36.427.251/0001-02</p>
+    <p>O trecho bíblico desta página é da <strong>Bíblia Livre (BLIVRE)</strong>, edição Textus Receptus, © Diego Santos, Mario Sérgio e Marco Teles, sob a licença <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br">Creative Commons Atribuição 4.0</a>. Versão de 2022-03-08, com correções de pontuação e espaçamento e padronização das aspas de fala direta feitas pela Alvorada; os autores originais não endossam necessariamente estas alterações.</p>
   </div>
 </footer>
+
+<script>
+  // "Abrir no aplicativo": só em celular, e pelo esquema próprio do app.
+  //
+  // Por que não um link https para o próprio eps.dev.br/alvorada: um toque num
+  // link universal do MESMO domínio da página não abre o app em nenhum dos dois
+  // sistemas (o iOS assume que a pessoa quer continuar no Safari, e o Chrome
+  // não dispara App Links em navegação de mesma origem). O esquema `alvorada://`
+  // funciona hoje, em qualquer build já instalada, inclusive nas dos testadores,
+  // que ainda não conhecem este domínio.
+  //
+  // O destino vem do parâmetro "abrir" (as páginas /alvorada/biblia/,
+  // /alvorada/compartilhar/ e /alvorada/programa/ redirecionam para cá com ele) e
+  // passa pela MESMA lista de permitidos de +native-intent.ts no app.
+  (function () {
+    var ua = navigator.userAgent || '';
+    var android = /Android/i.test(ua);
+    var ios = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    var raiz = document.documentElement;
+    if (android) raiz.classList.add('so-android');
+    else if (ios) raiz.classList.add('so-ios');
+    else return;
+
+    var permitidas = ['/', '/biblia', '/compartilhar', '/programa'];
+    var pedido = '/';
+    try { pedido = new URLSearchParams(location.search).get('abrir') || '/'; } catch (e) {}
+    if (pedido.indexOf('/alvorada') === 0) pedido = pedido.slice('/alvorada'.length) || '/';
+    var partes = pedido.split('?');
+    var caminho = partes[0].replace(/\/+$/, '') || '/';
+    var busca = partes.length > 1 ? partes.slice(1).join('?').replace(/[^\w.=&%+-]/g, '') : '';
+    if (permitidas.indexOf(caminho) < 0) { caminho = '/'; busca = ''; }
+    var destino = caminho.slice(1) + (busca ? '?' + busca : '');   // "biblia?ref=PSA.103" ou ""
+
+    var link = document.getElementById('abrir');
+    if (!link) return;
+    if (android) {
+      var lojasAbertas = (document.getElementById('baixar') || {}).getAttribute
+        && document.getElementById('baixar').getAttribute('data-lojas') === 'abertas';
+      var fallback = lojasAbertas
+        ? 'https://play.google.com/store/apps/details?id=br.dev.eps.alvorada'
+        : location.origin + '/alvorada/#baixar';
+      link.href = 'intent://' + destino + '#Intent;scheme=alvorada;package=br.dev.eps.alvorada;S.browser_fallback_url=' + encodeURIComponent(fallback) + ';end';
+    } else {
+      link.href = 'alvorada://' + destino;
+    }
+    link.parentNode.hidden = false;
+  })();
+</script>
 
 </body>
 </html>
