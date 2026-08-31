@@ -1,0 +1,20 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "KUQ244TTYC.br.dev.eps.devocionalapp",
+          "KUQ244TTYC.br.dev.eps.alvorada"
+        ],
+        "components": [
+          { "/": "/alvorada", "comment": "A Hoje: o endereço impresso nos cartões" },
+          { "/": "/alvorada/", "comment": "A Hoje, com a barra" },
+          { "/": "/alvorada/biblia*", "comment": "O leitor da Bíblia: ?ref=PSA.103" },
+          { "/": "/alvorada/compartilhar*", "comment": "O compositor de cartões: ?assunto=versiculo|devocional" },
+          { "/": "/alvorada/programa*", "comment": "Um programa sazonal: ?slug=…" }
+        ]
+      }
+    ]
+  }
+}
