@@ -12,7 +12,8 @@
           { "/": "/alvorada/", "comment": "A Hoje, com a barra" },
           { "/": "/alvorada/biblia*", "comment": "O leitor da Bíblia: ?ref=PSA.103" },
           { "/": "/alvorada/compartilhar*", "comment": "O compositor de cartões: ?assunto=versiculo|devocional" },
-          { "/": "/alvorada/programa*", "comment": "Um programa sazonal: ?slug=…" }
+          { "/": "/alvorada/programa*", "comment": "Um programa sazonal: ?slug=…" },
+          { "/": "/alvorada/dupla*", "comment": "O convite para viver um propósito em dupla: ?codigo=… (EPS-256)" }
         ]
       }
     ]
