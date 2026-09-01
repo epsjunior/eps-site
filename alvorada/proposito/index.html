@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Alvorada</title>
+<!-- Esta URL é um link universal: num aparelho com o Alvorada instalado, o sistema
+     abre o app antes de chegar aqui. Quem chega é quem não tem o app, ou abriu no
+     navegador de propósito, e vai para a página inicial levando o destino no
+     parâmetro "abrir", de onde o botão "Abrir no aplicativo" parte.
+
+     "proposito" é o nome público (EPS-218); a rota do app continua "/programa", e
+     é ela que viaja no "abrir" — o botão da página inicial monta um esquema
+     alvorada://, que não passa pelo tradutor de URLs do app. /alvorada/programa/
+     continua existindo, para sempre, pelos links já compartilhados. -->
+<script>location.replace('/alvorada/?abrir=' + encodeURIComponent('/programa' + location.search));</script>
+<noscript><meta http-equiv="refresh" content="0; url=/alvorada/"></noscript>
+</head>
+<body>
+<p>Indo para <a href="/alvorada/">eps.dev.br/alvorada</a>…</p>
+</body>
+</html>
