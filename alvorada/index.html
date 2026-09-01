@@ -331,13 +331,21 @@
     else if (ios) raiz.classList.add('so-ios');
     else return;
 
-    var permitidas = ['/', '/biblia', '/compartilhar', '/programa'];
+    // As rotas do app, e os apelidos públicos que apontam para elas. A mesma
+    // lista de +native-intent.ts (ROTAS_PUBLICAS e ALIASES_PUBLICOS): "/dupla"
+    // faltava aqui desde a EPS-256, e sem ele o convite de dupla aberto no
+    // navegador perdia o código ao voltar para o app.
+    var permitidas = ['/', '/biblia', '/compartilhar', '/programa', '/dupla'];
+    var apelidos = { '/proposito': '/programa' };
     var pedido = '/';
     try { pedido = new URLSearchParams(location.search).get('abrir') || '/'; } catch (e) {}
     if (pedido.indexOf('/alvorada') === 0) pedido = pedido.slice('/alvorada'.length) || '/';
     var partes = pedido.split('?');
     var caminho = partes[0].replace(/\/+$/, '') || '/';
     var busca = partes.length > 1 ? partes.slice(1).join('?').replace(/[^\w.=&%+-]/g, '') : '';
+    // hasOwnProperty, e não `apelidos[caminho]`: um caminho escrito por
+    // qualquer pessoa acerta "constructor" no protótipo e devolve uma função.
+    if (Object.prototype.hasOwnProperty.call(apelidos, caminho)) caminho = apelidos[caminho];
     if (permitidas.indexOf(caminho) < 0) { caminho = '/'; busca = ''; }
     var destino = caminho.slice(1) + (busca ? '?' + busca : '');   // "biblia?ref=PSA.103" ou ""
 
