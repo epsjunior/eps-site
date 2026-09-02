@@ -5,7 +5,8 @@
       "namespace": "android_app",
       "package_name": "br.dev.eps.alvorada",
       "sha256_cert_fingerprints": [
-        "A3:71:C8:C9:D8:AF:AD:30:78:39:D2:30:CC:4E:20:CF:C1:A2:BE:E7:E9:E1:6E:6C:8F:8E:6A:54:FA:8C:37:C3"
+        "A3:71:C8:C9:D8:AF:AD:30:78:39:D2:30:CC:4E:20:CF:C1:A2:BE:E7:E9:E1:6E:6C:8F:8E:6A:54:FA:8C:37:C3",
+        "21:CD:46:F2:9B:43:8B:2A:4C:80:1D:7F:C9:3C:F1:06:3D:FA:AB:91:0E:8B:78:C4:23:D4:1A:E8:60:81:28:4A"
       ]
     }
   }
